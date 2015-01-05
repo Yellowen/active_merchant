@@ -183,7 +183,7 @@ module ActiveMerchant #:nodoc:
 
       def auth_object_from(authorization)
         uri = "#{ENDPOINT}/#{authorization}"
-        commit(uri, {}, method = :get)
+        commit(uri, {}, :get)
       end
 
       def parse(body)
@@ -253,6 +253,14 @@ module ActiveMerchant #:nodoc:
           when :get
            Net::HTTP::Get
         end
+
+        # required for Ruby 1.9 backwards compatibilty
+        begin
+          request_object = request_class.new(request_uri)
+        rescue
+          request_object = request_class.new(uri)
+        end
+
         consumer = OAuth::Consumer.new(
           @consumer_key,
           @consumer_secret,
@@ -262,7 +270,7 @@ module ActiveMerchant #:nodoc:
           @access_token,
           @token_secret)
         client_helper = OAuth::Client::Helper.new(
-          request_class.new(request_uri),
+          request_object,
           consumer: consumer,
           token: access_token,
           realm: @realm,
