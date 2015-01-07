@@ -1,20 +1,20 @@
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     class ParspalGateway < Gateway
-      self.test_url = 'https://example.com/test'
-      self.live_url = 'https://example.com/live'
+      self.test_url = 'https://parspal.com'
+      self.live_url = 'https://parspal.com'
 
-      self.supported_countries = ['US']
-      self.default_currency = 'USD'
+      self.supported_countries = ['IR']
+      self.default_currency = 'IRR'
       self.supported_cardtypes = [:visa, :master, :american_express, :discover]
 
-      self.homepage_url = 'http://www.example.net/'
-      self.display_name = 'New Gateway'
+      self.homepage_url = 'https://www.parspal.com'
+      self.display_name = 'ParsPal'
 
       STANDARD_ERROR_CODE_MAPPING = {}
 
       def initialize(options={})
-        requires!(options, :some_credential, :another_credential)
+        #requires!(options, :some_credential, :another_credential)
         super
       end
 
